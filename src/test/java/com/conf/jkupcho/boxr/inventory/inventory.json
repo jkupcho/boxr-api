@@ -1,0 +1,5 @@
+{
+  "onHand": 10,
+  "onOrder": 20,
+  "lowThreshold": 1000
+}
