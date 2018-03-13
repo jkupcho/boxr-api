@@ -52,7 +52,7 @@ public class InventoryServiceTests {
     }
 
     @Test
-    public void findNearbyInventory_400Success_ShouldReturnKnownList() {
+    public void findNearbyInventory_400BadRequest_ShouldReturnEmptyList() {
         ResponseEntity response = ResponseEntity.badRequest().build();
 
         Inventory concreteInventory = new Inventory(0, 0);
