@@ -3,6 +3,7 @@ package com.conf.jkupcho.boxr.product;
 import com.conf.jkupcho.boxr.core.AbstractIdentifiable;
 import com.conf.jkupcho.boxr.inventory.Inventory;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -12,14 +13,16 @@ import java.util.List;
 @Entity
 public class Product extends AbstractIdentifiable {
 
-    private final String description;
+    private String description;
 
     @Embedded
-    private final Classification classification;
+    private Classification classification;
 
     @JsonIgnore
     @OneToMany(mappedBy = "product")
     private List<Inventory> inventories;
+
+    protected Product() {}
 
     public Product(String description, Classification classification) {
         this.description = description;
@@ -32,5 +35,19 @@ public class Product extends AbstractIdentifiable {
 
     public Classification getClassification() {
         return classification;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) { return false; }
+        if (obj == this) { return true; }
+        if (obj.getClass() != getClass()) { return false; }
+
+        Product rhs = (Product)obj;
+
+        return new EqualsBuilder()
+            .append(description, rhs.description)
+            .reflectionAppend(classification, rhs.classification)
+        .build();
     }
 }

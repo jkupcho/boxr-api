@@ -2,18 +2,13 @@ package com.conf.jkupcho.boxr.inventory;
 
 import com.conf.jkupcho.boxr.core.JacksonConfiguration;
 import com.conf.jkupcho.boxr.product.Classification;
-import com.conf.jkupcho.boxr.product.Product;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.json.JsonContent;
 import org.springframework.context.annotation.Import;

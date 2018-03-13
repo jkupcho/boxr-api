@@ -3,7 +3,6 @@ package com.conf.jkupcho.boxr.inventory;
 import com.conf.jkupcho.boxr.core.AbstractIdentifiable;
 import com.conf.jkupcho.boxr.product.Product;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
 import javax.persistence.Entity;
