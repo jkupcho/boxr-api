@@ -3,6 +3,7 @@ package com.conf.jkupcho.boxr.inventory;
 import com.conf.jkupcho.boxr.core.AbstractIdentifiable;
 import com.conf.jkupcho.boxr.product.Product;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
 import javax.persistence.Entity;
@@ -12,16 +13,20 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Inventory extends AbstractIdentifiable {
 
-    static final Integer DEFAULT_LOW_THRESHOLD = 100;
+    public static final Integer DEFAULT_LOW_THRESHOLD = 100;
 
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
 
-    private final Integer onHand;
-    private final Integer onOrder;
-    private final Integer lowThreshold;
+    private Integer onHand;
+    private Integer onOrder;
+    private Integer lowThreshold;
+
+    protected Inventory() {
+        this.lowThreshold = DEFAULT_LOW_THRESHOLD;
+    }
 
     public Inventory(Integer onHand, Integer onOrder) {
         this(onHand, onOrder, DEFAULT_LOW_THRESHOLD);
@@ -38,7 +43,7 @@ public class Inventory extends AbstractIdentifiable {
     }
 
     public boolean isLowThresholdMet() {
-        return onHand <= lowThreshold;
+        return onHand <= getLowThreshold();
     }
 
     public boolean canOrder() {
@@ -58,7 +63,7 @@ public class Inventory extends AbstractIdentifiable {
     }
 
     public Integer getLowThreshold() {
-        return lowThreshold;
+        return lowThreshold == null ? DEFAULT_LOW_THRESHOLD : lowThreshold;
     }
 
     @Override

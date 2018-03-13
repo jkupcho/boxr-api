@@ -10,6 +10,8 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import static com.conf.jkupcho.boxr.inventory.Inventory.DEFAULT_LOW_THRESHOLD;
+
 @Configuration
 public class JacksonConfiguration {
 
@@ -31,7 +33,7 @@ public class JacksonConfiguration {
             @JsonCreator
             public InventoryMixin(@JsonProperty("onHand") Integer onHand,
                                   @JsonProperty("onOrder") Integer onOrder,
-                                  @JsonProperty("lowThreshold") Integer lowThreshold) {}
+                                  @JsonProperty(value = "lowThreshold") Integer lowThreshold) {}
 
         }
 
