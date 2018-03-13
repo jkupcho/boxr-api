@@ -1,14 +1,12 @@
 package com.conf.jkupcho.boxr.core;
 
 import com.conf.jkupcho.boxr.inventory.Inventory;
-import com.conf.jkupcho.boxr.inventory.Location;
 import com.conf.jkupcho.boxr.product.Classification;
 import com.conf.jkupcho.boxr.product.Product;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import org.springframework.boot.jackson.JsonComponent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -26,7 +24,6 @@ public class JacksonConfiguration {
             setMixInAnnotation(Inventory.class, InventoryMixin.class);
             setMixInAnnotation(Product.class, ProductMixin.class);
             setMixInAnnotation(Classification.class, ClassificationMixin.class);
-            setMixInAnnotation(Location.class, LocationMixin.class);
         }
 
         abstract static class InventoryMixin {
@@ -49,13 +46,6 @@ public class JacksonConfiguration {
 
             @JsonCreator
             public ClassificationMixin(String name) {}
-
-        }
-
-        abstract static class LocationMixin {
-
-            @JsonCreator
-            public LocationMixin(String name) {}
 
         }
 

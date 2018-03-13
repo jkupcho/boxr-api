@@ -19,11 +19,6 @@ public class Inventory extends AbstractIdentifiable {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "location_id")
-    private Location location;
-
     private final Integer onHand;
     private final Integer onOrder;
     private final Integer lowThreshold;
@@ -33,8 +28,6 @@ public class Inventory extends AbstractIdentifiable {
     }
 
     public Inventory(Integer onHand, Integer onOrder, Integer lowThreshold) {
-        this.product = product;
-        this.location = location;
         this.onHand = onHand;
         this.onOrder = onOrder;
         this.lowThreshold = lowThreshold;
@@ -54,10 +47,6 @@ public class Inventory extends AbstractIdentifiable {
 
     public Product getProduct() {
         return product;
-    }
-
-    public Location getLocation() {
-        return location;
     }
 
     public Integer getOnHand() {

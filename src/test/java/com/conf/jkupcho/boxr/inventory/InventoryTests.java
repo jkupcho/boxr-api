@@ -11,12 +11,10 @@ import static org.junit.Assert.assertTrue;
 public class InventoryTests {
 
     private Product product;
-    private Location location;
 
     @Before
     public void setup() {
         product = Mockito.mock(Product.class);
-        location = Mockito.mock(Location.class);
     }
 
     @Test
