@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 // ApplicationContext needs to be loaded, then you can auto configure
 // MockMvc.
 @AutoConfigureMockMvc
-public class InventoryRestRepostoryTests {
+public class InventoryResourceTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -130,6 +130,39 @@ public class InventoryRestRepostoryTests {
         // Verify the association worked.
         assertNotNull(inventory.getProduct());
         assertEquals(product, inventory.getProduct());
+    }
+
+    @Test
+    public void pickItem_ShouldAllowPick() throws Exception {
+        Product product = new Product("Awesome Widget!", new Classification("Widget"));
+        product = productRepository.save(product);
+
+        Inventory inventory = new Inventory(10, 0, 10);
+        inventory = inventoryRepository.save(inventory);
+
+        mockMvc.perform(put("/inventory/" + inventory.getId() + "/product")
+            .content("http://localhost/product/" + product.getId())
+            .contentType("text/uri-list"))
+            .andExpect(status().isNoContent());
+
+        inventory = inventoryRepository.findById(inventory.getId()).get();
+        assertNotNull(inventory.getProduct());
+
+        // pick 10 widgets
+        mockMvc.perform(put("/inventory/" + inventory.getId() + "/pick")
+            .content("{ \"numPicked\": 10 }")
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isNoContent());
+
+        // verify database updated
+        inventory = inventoryRepository.findById(inventory.getId()).get();
+        assertSame(0, inventory.getOnHand());
+
+        // try picking 10 again, should be bad request.
+        mockMvc.perform(put("/inventory/" + inventory.getId() + "/pick")
+            .content("{ \"numPicked\": 10 }")
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isBadRequest());
     }
 
 }

@@ -37,6 +37,10 @@ public class Inventory extends AbstractIdentifiable {
         this.lowThreshold = lowThreshold;
     }
 
+    public void pick(int numPicked) {
+        onHand -= numPicked;
+    }
+
     public boolean isOutOfStock() {
         return onHand <= 0;
     }
